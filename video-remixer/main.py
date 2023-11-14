@@ -99,6 +99,7 @@ def run_nendo_plugin_chain(path_to_audio: str, prompt: str) -> str:
         bpm=bpm,
         key=key,
         scale=scale,
+        conditioning_length=2,
         n_samples=1,
         model="facebook/musicgen-stereo-medium",
     )[0]
@@ -106,7 +107,7 @@ def run_nendo_plugin_chain(path_to_audio: str, prompt: str) -> str:
     vocals = nd.plugins.fx_core.highpass(track=vocals, cutoff_frequency_hz=100)
     vocals = nd.plugins.fx_core.reverb(track=vocals, wet_level=0.2, dry_level=0.8)
 
-    remix = remixed_bg.overlay(vocals, gain_db=1)
+    remix = remixed_bg.overlay(vocals, gain_db=0.5)
     return remix.resource.src
 
 
