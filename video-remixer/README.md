@@ -23,6 +23,8 @@ Check out an example:
 Install nendo and the required plugins via `requirements.txt`:
 
 ```bash
+git clone https://github.com/okio-ai/nendo-example-apps.git
+cd nendo-example-apps/video-remixer
 pip install -r requirements.txt
 ```
 
