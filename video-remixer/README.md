@@ -4,7 +4,7 @@ The video remixer is an App based on a chain of different nendo plugins.
 It allows you to generate music videos remixed with AI audio from youtube links.
 
 Try it in colab:
-<a target="_blank" href="https://colab.research.google.com/github/okio-ai/nendo-example-apps/blob/main/video-remixer/remixer.ipynb">
+<a target="_blank" href="https://colab.research.google.com/drive/1P1BEArCX9kRVVqTbZXxX3eFevxvjuVpq?usp=sharing">
 <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
