@@ -27,7 +27,6 @@ def yt_download(link: str, end_time: int, output_path: str) -> str:
                 "preferedformat": "mp4",
             },
         ],
-        # 'merge_output_format': 'mp4',
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([link])
