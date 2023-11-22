@@ -15,10 +15,9 @@ https://github.com/okio-ai/nendo-example-apps/assets/17432850/c8b445f1-66e9-4d59
 
 ## Features
 
-- generate music videos of remixed audio from youtube links
+- Generate music videos of remixed audio from youtube links
 - Smells Like Teen Spirit (Dub Version)? Shake It Off (Trash Metal Remix)? Yes please!
-- endless creativity, inspiration and memes
-- **NEW:** Now comes with stereo generation support from `facebook/musicgen-stereo-*`!
+- Endless creativity, inspiration and memes
 
 ## Installation
 
@@ -89,3 +88,10 @@ def run_nendo_plugin_chain(path_to_audio: str, prompt: str) -> str:
     remix = remixed_bg.overlay(vocals, gain_db=1)
     return remix.resource.src
 ```
+
+
+
+
+## Warranty 
+
+This is a research project. We are not responsible for any damages caused by the software. 
