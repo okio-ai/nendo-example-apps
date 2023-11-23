@@ -12,7 +12,7 @@
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/okio_ai.svg?style=social&label=Follow%20%40okio_ai)](https://twitter.com/okio_ai) [![](https://dcbadge.vercel.app/api/server/XpkUsjwXTp?compact=true&style=flat)](https://discord.gg/XpkUsjwXTp)
 
 
-This repository contains example apps built with the nendo framework.
+This repository contains example apps built with the nendo core.
 
 
 ## Apps
