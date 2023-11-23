@@ -1,7 +1,7 @@
 yt-dlp==2023.10.7
 moviepy==1.0.3
 nendo==0.1.0
-nendo-plugin-classify-core==0.1.0
+nendo-plugin-classify-core>=0.1.1
 nendo-plugin-musicgen==0.1.0
 nendo-plugin-fx-core==0.1.0
 nendo-plugin-stemify-demucs==0.1.0
