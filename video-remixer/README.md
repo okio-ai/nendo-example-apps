@@ -15,7 +15,7 @@ Try it in colab:
 
 Check out an example:
 
-https://github.com/okio-ai/nendo-example-apps/assets/17432850/c8b445f1-66e9-4d59-add2-3edbfecff457
+https://github.com/okio-ai/nendo-example-apps/assets/17432850/061a07a2-64ac-4647-872a-8b6f1370fab8
 
 
 ## Features
