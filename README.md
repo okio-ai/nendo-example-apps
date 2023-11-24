@@ -18,5 +18,4 @@ This repository contains example apps built with the nendo core.
 ## Apps
 
 - [Video Remixer](video-remixer/README.md)
-- [PolyMath](https://github.com/samim23/polymath)
 
