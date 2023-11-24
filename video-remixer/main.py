@@ -67,7 +67,10 @@ def extract_audio(video_path: str, output_path: str) -> str:
 
 
 def run_nendo_plugin_chain(
-        path_to_audio: str, prompt: str, vocal_gain: float, model: str,
+    path_to_audio: str,
+    prompt: str,
+    vocal_gain: float,
+    model: str,
 ) -> str:
     nd = Nendo(
         config=NendoConfig(
@@ -125,7 +128,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-s", "--start-time", type=str, default="00:00")
     parser.add_argument("-e", "--end-time", type=str, default="00:30")
     parser.add_argument("-v", "--vocal-gain", type=float, default=0.5)
-    parser.add_argument("-m", "--model", type=str, default="facebook/musicgen-stereo-medium")
+    parser.add_argument(
+        "-m", "--model", type=str, default="facebook/musicgen-stereo-medium"
+    )
     parser.add_argument(
         "-o",
         "--output-video-path",
@@ -137,13 +142,21 @@ def parse_args() -> argparse.Namespace:
 
 
 def main(
-    yt_link: str, start_time: str, end_time: str, prompt: str, output_video_path: str, vocal_gain: float, model: str
+    yt_link: str,
+    start_time: str,
+    end_time: str,
+    prompt: str,
+    output_video_path: str,
+    vocal_gain: float,
+    model: str,
 ):
     video_path = yt_download(
         link=yt_link, start_time=start_time, end_time=end_time, output_path="video"
     )
     audio_path = extract_audio(video_path, output_path="audio.mp3")
-    remixed_audio_path = run_nendo_plugin_chain(audio_path, prompt, vocal_gain=vocal_gain, model=model)
+    remixed_audio_path = run_nendo_plugin_chain(
+        audio_path, prompt, vocal_gain=vocal_gain, model=model
+    )
     remix_video(video_path, remixed_audio_path, output_path=output_video_path)
     os.remove(video_path)
     os.remove(audio_path)
@@ -158,5 +171,5 @@ if __name__ == "__main__":
         end_time=args.end_time,
         output_video_path=args.output_video_path,
         vocal_gain=args.vocal_gain,
-        model=args.model
+        model=args.model,
     )

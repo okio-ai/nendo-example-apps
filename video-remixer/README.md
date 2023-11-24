@@ -3,6 +3,11 @@
 The video remixer is an App based on a chain of different nendo plugins. 
 It allows you to generate music videos remixed with AI audio from youtube links.
 
+**⚠ Important Disclaimer:** 
+The video/audio content created using Remix are intended solely for research and educational purposes. 
+We assume no responsibility for their use or misuse. 
+We urge users to employ this tool responsibly and ethically.
+
 Try it in colab:
 <a target="_blank" href="https://colab.research.google.com/drive/1P1BEArCX9kRVVqTbZXxX3eFevxvjuVpq?usp=sharing">
 <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -50,7 +55,9 @@ to do MIR, stemification, audio generation and effects processing.
 Here is the full example from [main.py](main.py):
 
 ```python
-def run_nendo_plugin_chain(path_to_audio: str, prompt: str) -> str:
+def run_nendo_plugin_chain(
+        path_to_audio: str, prompt: str, vocal_gain: float, model: str,
+) -> str:
     nd = Nendo(
         config=NendoConfig(
             plugins=[
@@ -61,37 +68,34 @@ def run_nendo_plugin_chain(path_to_audio: str, prompt: str) -> str:
             ],
         )
     )
+
     track = nd.library.add_track(file_path=path_to_audio)
+
     track = nd.plugins.classify_core(track=track)
-    bpm = int(
-        float(track.get_plugin_data("nendo_plugin_classify_core", "tempo")[0].value)
-    )
-    key = track.get_plugin_data("nendo_plugin_classify_core", "key")[0].value
-    scale = track.get_plugin_data("nendo_plugin_classify_core", "scale")[0].value
+    bpm = int(float(track.get_plugin_data("nendo_plugin_classify_core", "tempo")))
+    key = track.get_plugin_data("nendo_plugin_classify_core", "key")
+    scale = track.get_plugin_data("nendo_plugin_classify_core", "scale")
 
     stems = nd.plugins.stemify_demucs(
         track=track, model="mdx_extra", stem_types=["vocals", "no_vocals"]
     )
     vocals, background = stems[0], stems[1]
+
     remixed_bg = nd.plugins.musicgen(
         track=background,
         prompt=prompt,
         bpm=bpm,
         key=key,
         scale=scale,
+        conditioning_length=2,
         n_samples=1,
-        model="facebook/musicgen-stereo-medium",
+        model=model,
     )[0]
 
     vocals = nd.plugins.fx_core.highpass(track=vocals, cutoff_frequency_hz=100)
     vocals = nd.plugins.fx_core.reverb(track=vocals, wet_level=0.2, dry_level=0.8)
-    remix = remixed_bg.overlay(vocals, gain_db=1)
+
+    remix = remixed_bg.overlay(vocals, gain_db=vocal_gain)
     return remix.resource.src
 ```
 
-
-
-
-## Warranty 
-
-This is a research project. We are not responsible for any damages caused by the software. 
