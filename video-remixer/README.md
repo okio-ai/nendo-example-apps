@@ -24,6 +24,14 @@ https://github.com/okio-ai/nendo-example-apps/assets/17432850/061a07a2-64ac-4647
 - Smells Like Teen Spirit (Dub Version)? Shake It Off (Trash Metal Remix)? Yes please!
 - Endless creativity, inspiration and memes
 
+## Requirements
+
+As this app uses the [Nendo musicgen plugin](https://github.com/okio-ai/nendo_plugin_musicgen), you have to install Pytorch 2.0.0 or higher first:
+
+`pip install "torch>=2.0"`
+
+> Note: On Mac OSX, the instructions for installing pytorch differ. Please refer to the [pytorch installation instructions](https://pytorch.org/get-started/locally/).
+
 ## Installation
 
 Install nendo and the required plugins via `requirements.txt`:
