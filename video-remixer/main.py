@@ -71,9 +71,13 @@ def run_nendo_plugin_chain(
     prompt: str,
     vocal_gain: float,
     model: str,
+    conditioning_length: float,
+    prompt_strength: float,
+    output_audio_path: str,
 ) -> str:
     nd = Nendo(
         config=NendoConfig(
+            log_level="warning",
             plugins=[
                 "nendo_plugin_stemify_demucs",
                 "nendo_plugin_musicgen",
@@ -101,7 +105,8 @@ def run_nendo_plugin_chain(
         bpm=bpm,
         key=key,
         scale=scale,
-        conditioning_length=2,
+        conditioning_length=conditioning_length,
+        cfg_coef=prompt_strength,
         n_samples=1,
         model=model,
     )[0]
@@ -110,17 +115,17 @@ def run_nendo_plugin_chain(
     vocals = nd.plugins.fx_core.reverb(track=vocals, wet_level=0.2, dry_level=0.8)
 
     remix = remixed_bg.overlay(vocals, gain_db=vocal_gain)
-    return remix.resource.src
+    remix.export(output_audio_path)
+    return output_audio_path
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-l",
-        "--yt-link",
+        "--link",
         type=str,
-        required=True,
-        help="Youtube link to download for the remix.",
+        help="Youtube link to download or audio file path for the remix.",
     )
     parser.add_argument(
         "-p", "--prompt", type=str, required=True, help="Prompt to use for the remix."
@@ -131,6 +136,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-m", "--model", type=str, default="facebook/musicgen-stereo-medium"
     )
+    parser.add_argument("-c", "--conditioning-length", type=float, default=5)
+    parser.add_argument("-ps", "--prompt-strength", type=float, default=3.5)
     parser.add_argument(
         "-o",
         "--output-video-path",
@@ -138,38 +145,69 @@ def parse_args() -> argparse.Namespace:
         default="output.mp4",
         help="Output path for the remix.",
     )
+    parser.add_argument(
+        "-oa",
+        "--output-audio-path",
+        type=str,
+        default="remixed_audio.mp3",
+        help="Output path for the audio of the remix.",
+    )
     return parser.parse_args()
 
 
 def main(
-    yt_link: str,
+    link_or_path: str,
     start_time: str,
     end_time: str,
     prompt: str,
     output_video_path: str,
+    output_audio_path: str,
     vocal_gain: float,
+    conditioning_length: float,
+    prompt_strength: float,
     model: str,
 ):
-    video_path = yt_download(
-        link=yt_link, start_time=start_time, end_time=end_time, output_path="video"
+    is_link = link_or_path.startswith("https://")
+    if is_link:
+        print("Downloading video...")
+        video_path = yt_download(
+            link=link_or_path, start_time=start_time, end_time=end_time, output_path="video"
+        )
+        audio_path = extract_audio(video_path, output_path="audio.mp3")
+    else:
+        print("Using local audio file...")
+        audio_path = link_or_path
+
+    print("Running nendo plugin chain...")
+    run_nendo_plugin_chain(
+        audio_path, prompt,
+        vocal_gain=vocal_gain,
+        model=model,
+        conditioning_length=conditioning_length,
+        prompt_strength=prompt_strength,
+        output_audio_path=output_audio_path
     )
-    audio_path = extract_audio(video_path, output_path="audio.mp3")
-    remixed_audio_path = run_nendo_plugin_chain(
-        audio_path, prompt, vocal_gain=vocal_gain, model=model
-    )
-    remix_video(video_path, remixed_audio_path, output_path=output_video_path)
-    os.remove(video_path)
-    os.remove(audio_path)
+
+    if is_link:
+        print("Remixing audio and video...")
+        remix_video(video_path, output_audio_path, output_path=output_video_path)
+        os.remove(video_path)
+        os.remove(audio_path)
+
+    print("Done!")
 
 
 if __name__ == "__main__":
     args = parse_args()
     main(
-        yt_link=args.yt_link,
+        link_or_path=args.link,
         prompt=args.prompt,
         start_time=args.start_time,
         end_time=args.end_time,
         output_video_path=args.output_video_path,
+        output_audio_path=args.output_audio_path,
+        conditioning_length=args.conditioning_length,
+        prompt_strength=args.prompt_strength,
         vocal_gain=args.vocal_gain,
         model=args.model,
     )
