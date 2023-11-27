@@ -44,8 +44,16 @@ pip install -r requirements.txt
 
 ## Usage
 
+Create a video remix from a youtube link:
+
 ```bash
-python main.py -l https://www.youtube.com/watch\?v\=OPf0YbXqDm0 -p "jazz bebop" -o "uptown_jazz.mp4"
+python main.py -l https://www.youtube.com/watch\?v\=OPf0YbXqDm0 -p "jazz bebop" -o "uptown_jazz.mp4" 
+```
+
+Create an audio-only remix from a file:
+
+```bash
+python main.py -f /path/to/file.mp3 -p "jazz bebop" -oa "jazz_remix.mp3" 
 ```
 
 ## Nendo Functionality
