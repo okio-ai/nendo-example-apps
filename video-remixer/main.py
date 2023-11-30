@@ -90,12 +90,12 @@ def run_nendo_plugin_chain(
     track = nd.library.add_track(file_path=path_to_audio)
 
     track = nd.plugins.classify_core(track=track)
-    bpm = int(float(track.get_plugin_data("nendo_plugin_classify_core", "tempo")))
-    key = track.get_plugin_data("nendo_plugin_classify_core", "key")
-    scale = track.get_plugin_data("nendo_plugin_classify_core", "scale")
+    bpm = int(float(track.get_plugin_value("tempo")))
+    key = track.get_plugin_value("key")
+    scale = track.get_plugin_value("scale")
 
     stems = nd.plugins.stemify_demucs(
-        track=track, model="mdx_extra", stem_types=["vocals", "no_vocals"]
+        track=track, model="mdx_extra", stem_types=["vocals", "no_vocals"],
     )
     vocals, background = stems[0], stems[1]
 
