@@ -7,11 +7,6 @@ Try it in colab:
 <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-Check out an example:
-
-https://github.com/okio-ai/nendo-example-apps/assets/17432850/c8b445f1-66e9-4d59-add2-3edbfecff457
-
-
 ## Features
 
 - Import tracks from youtube or directly from your google drive
