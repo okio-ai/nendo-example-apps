@@ -36,6 +36,10 @@ def build_simple_query(track: NendoTrack) -> str:
     if key is not None:
         query += f" in {key}"
 
+    scale = track.get_plugin_value("scale")
+    if scale is not None:
+        query += f" {scale}"
+
     instruments = track.get_plugin_value("instruments")
     if instruments is not None:
         instrument = random.choice(instruments.split(","))
@@ -188,7 +192,7 @@ def main():
             query = build_simple_query(track)
             tracks = nd.library.nearest_by_query(query, n=20)
 
-            scores = is_relevant(track, tracks, at=[1, 5, 20], threshold=5)
+            scores = is_relevant(track, tracks, at=[1, 5, 20], threshold=args.relevancy_threshold)
             relevant_at_1 += scores[1]
             relevant_at_5 += scores[5]
             relevant_at_20 += scores[20]
