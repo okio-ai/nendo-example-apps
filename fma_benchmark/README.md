@@ -1,5 +1,13 @@
 # Nendo Search FMA Benchmark
 
+### Plugins in use:
+
+- [nendo-plugin-classify-core](https://github.com/okio-ai/nendo_plugin_classify_core)
+- [nendo-plugin-embed-clap](https://github.com/okio-ai/nendo_plugin_embed_clap)
+- [nendo-plugin-library-postgres](https://github.com/okio-ai/nendo_plugin_library_postgres)
+- [nendo-plugin-textgen](https://github.com/okio-ai/nendo_plugin_textgen)
+- [nendo-plugin-caption-lpmusiccaps](https://github.com/okio-ai/nendo_plugin_caption_lpmusiccaps)
+
 This search benchmark showcases the performance of Nendo being used as a Audio Search Engine.
 It uses the [fma_small](https://github.com/mdeff/fma) dataset, consisting of 8,000 tracks with a length of 30s.
 
@@ -9,8 +17,8 @@ It uses the [fma_small](https://github.com/mdeff/fma) dataset, consisting of 8,0
 |---------------------|--------------|--------------|----------------|
 | 5                   | 0.031        | 0.71985      | 0.92945        |
 | 4                   | 0.19275      | 0.8018       | 0.950125       |
-| **3**               | **0.46875**  | **0.87775**  | **0.96914375** |
-| 2                   | 0.78525      | 0.953        | 0.98796875     |
+| 3                   | 0.46875      | 0.87775      | 0.96914375     |
+| **2**               | **0.78525**  | **0.953**    | **0.98796875** |
 | 1                   | 0.956        | 0.990625     | 0.997375       |
 
 ### relevancy_threshold
@@ -29,7 +37,7 @@ query.
 
 We have two ways of building queries:
 
-#### 1. Using the a simple string builder with random tracks tags:
+#### 1. Using a simple string builder with random tracks tags:
 
 We build queries by randomly sampling from a tracks `moods`, `instruments` and `key` tags.
 An example query would then look like this:
@@ -88,38 +96,3 @@ python main.py --mode eval --subset -1 --relevancy_threshold 4
 
 Per default this will give you `Precision @1`, `Precision @5` and `Precision @20` for the whole dataset.
 
-## Nendo Functionality
-
-### Plugins in use:
-
-- [nendo-plugin-classify-core](https://github.com/okio-ai/nendo_plugin_classify_core)
-- [nendo-plugin-embed-clap](https://github.com/okio-ai/nendo_plugin_embed_clap)
-- [nendo-plugin-library-postgres](https://github.com/okio-ai/nendo_plugin_library_postgres)
-- [nendo-plugin-textgen](https://github.com/okio-ai/nendo_plugin_textgen)
-- [nendo-plugin-caption-lpmusiccaps](https://github.com/okio-ai/nendo_plugin_caption_lpmusiccaps)
-
-## Notes
-
-- `relevancy_threshold = 5`
-  Precision @1: 0.031
-  Precision @5: 0.71985
-  Precision @20: 0.92945
-- `relevancy_threshold = 4`
-  Precision @1: 0.19275
-  Precision @5: 0.8018
-  Precision @20: 0.950125
-
-- `relevancy_threshold = 3`
-  Precision @1: 0.46875
-  Precision @5: 0.87775
-  Precision @20: 0.96914375
-
-- `relevancy_threshold = 2`
-  Precision @1: 0.78525
-  Precision @5: 0.953
-  Precision @20: 0.98796875
-
-- `relevancy_threshold = 1`
-  Precision @1: 0.956
-  Precision @5: 0.990625
-  Precision @20: 0.997375

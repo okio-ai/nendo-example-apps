@@ -95,7 +95,9 @@ def run_nendo_plugin_chain(
     scale = track.get_plugin_value("scale")
 
     stems = nd.plugins.stemify_demucs(
-        track=track, model="mdx_extra", stem_types=["vocals", "no_vocals"],
+        track=track,
+        model="mdx_extra",
+        stem_types=["vocals", "no_vocals"],
     )
     vocals, background = stems[0], stems[1]
 
@@ -171,7 +173,10 @@ def main(
     if is_link:
         print("Downloading video...")
         video_path = yt_download(
-            link=link_or_path, start_time=start_time, end_time=end_time, output_path="video"
+            link=link_or_path,
+            start_time=start_time,
+            end_time=end_time,
+            output_path="video",
         )
         audio_path = extract_audio(video_path, output_path="audio.mp3")
     else:
@@ -180,12 +185,13 @@ def main(
 
     print("Running nendo plugin chain...")
     run_nendo_plugin_chain(
-        audio_path, prompt,
+        audio_path,
+        prompt,
         vocal_gain=vocal_gain,
         model=model,
         conditioning_length=conditioning_length,
         prompt_strength=prompt_strength,
-        output_audio_path=output_audio_path
+        output_audio_path=output_audio_path,
     )
 
     if is_link:
