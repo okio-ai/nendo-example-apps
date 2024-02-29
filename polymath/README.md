@@ -1,6 +1,6 @@
 # Polymath
 
-Polymath uses machine learning to convert any music library (e.g from Hard-Drive or YouTube) into a music production sample-library. The tool automatically separates songs into stems (beats, bass, etc.), quantizes them to the same tempo and beat-grid (e.g. 120bpm), analyzes musical structure (e.g. verse, chorus, etc.), key (e.g C4, E3, etc.) and other infos (timbre, loudness, etc.), and converts audio to midi. The result is a searchable sample library that streamlines the workflow for music producers, DJs, and ML audio developers.
+Polymath uses machine learning to convert any music library (*e.g from Hard-Drive or YouTube*) into a music production sample-library. The tool automatically separates tracks into stems (_drums, bass, etc._), quantizes them to the same tempo and beat-grid (*e.g. 120bpm*), analyzes tempo, key (_e.g C4, E3, etc._) and other infos (*timbre, loudness, etc.*) and cuts loop out of them. The result is a searchable sample library that streamlines the workflow for music producers, DJs, and ML audio developers.
 
 Try it in colab:
 <a target="_blank" href="https://colab.research.google.com/drive/1TjRVFdh1BPdQ_5_PL5EsfS278-EUYt90?usp=sharing">
@@ -19,23 +19,11 @@ Try it in colab:
 
 ## Requirements
 
-The [quantizer plugin](https://github.com/okio-ai/nendo-plugin-quantize-core) requires the `rubberband` package to be installed in your system. Please refer to the [rubberband documentation](https://breakfastquay.com/rubberband/index.html) for further information.
-
-Due to errors with `madmom` versions < 0.17 errors and python 3.10, the [loopify plugin](https://github.com/okio-ai/nendo-plugin-loopify) requires the latest version of the  package from git, where this is fixed. See also [this related issue](https://github.com/CPJKU/madmom/issues/502).
-
-Run:
-
-`pip install git+https://github.com/CPJKU/madmom.git@0551aa8`
+Please refer to the [polymath requirements](https://github.com/samim23/polymath#requirements) to learn about polymath's requirements.
 
 ## Installation
 
-Clone the [polymath](https://github.com/samim23/polymath) repository and install nendo and the required plugins via `requirements.txt`:
-
-```bash
-git clone https://github.com/samim23/polymath
-cd polymath
-pip install -r requirements.txt
-```
+Please refer to the [polymath installation instructions](https://github.com/samim23/polymath#installation) to learn about polymath's requirements.
 
 ## Usage
 
